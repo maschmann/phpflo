@@ -29,4 +29,13 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(PortRegistry::class, $component->inPorts());
         $this->assertInstanceOf(PortRegistry::class, $component->outPorts());
     }
+
+    public function testShutdown()
+    {
+        $component = new Component();
+
+        $component->inPorts()->add('source', []);
+        $component->outPorts()->add('out', []);
+        $this->assertSame($component, $component->shutdown());
+    }
 }

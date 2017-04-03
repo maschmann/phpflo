@@ -10,9 +10,7 @@
 
 namespace Tests\PhpFlo\Common;
 
-use PhpFlo\Common\ComponentInterface;
 use PhpFlo\Common\ComponentTrait;
-use PhpFlo\Component;
 use PhpFlo\Interaction\PortRegistry;
 
 class ComponentTraitTest extends \PHPUnit_Framework_TestCase
@@ -40,12 +38,5 @@ class ComponentTraitTest extends \PHPUnit_Framework_TestCase
     public function testOutPorts()
     {
         $this->assertInstanceOf(PortRegistry::class, $this->componentTrait->outPorts());
-    }
-
-    public function testShutdown()
-    {
-        $this->componentTrait->inPorts()->add('source', []);
-        $this->componentTrait->outPorts()->add('out', []);
-        $this->assertSame($this->componentTrait, $this->componentTrait->shutdown());
     }
 }
