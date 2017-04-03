@@ -17,34 +17,35 @@ use PhpFlo\Interaction\PortRegistry;
 
 class ComponentTraitTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ComponentTrait
+     */
+    private $componentTrait;
+
+    public function setUp()
+    {
+        $this->componentTrait = $this->getObjectForTrait(ComponentTrait::class);
+    }
+    
     public function testDescriptionAccessor()
     {
-        $component = $this->mockComponentTrait();
-        $this->assertEquals("", $component->getDescription());
+        $this->assertEquals("", $this->componentTrait->getDescription());
     }
 
     public function testInPorts()
     {
-        $component = $this->mockComponentTrait();
-        $this->assertInstanceOf(PortRegistry::class, $component->inPorts());
+        $this->assertInstanceOf(PortRegistry::class, $this->componentTrait->inPorts());
     }
 
     public function testOutPorts()
     {
-        $component = $this->mockComponentTrait();
-        $this->assertInstanceOf(PortRegistry::class, $component->outPorts());
+        $this->assertInstanceOf(PortRegistry::class, $this->componentTrait->outPorts());
     }
 
     public function testShutdown()
     {
-        $component = $this->mockComponentTrait();
-        $component->inPorts()->add('source', []);
-        $component->outPorts()->add('out', []);
-        $this->assertSame($component, $component->shutdown());
-    }
-
-    private function mockComponentTrait()
-    {
-        return $this->getObjectForTrait(ComponentTrait::class);
+        $this->componentTrait->inPorts()->add('source', []);
+        $this->componentTrait->outPorts()->add('out', []);
+        $this->assertSame($this->componentTrait, $this->componentTrait->shutdown());
     }
 }
