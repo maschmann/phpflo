@@ -3,6 +3,7 @@ namespace Test\PhpFlo\Builder;
 
 use PhpFlo\Builder\ComponentDiFinder;
 use PhpFlo\Common\ComponentInterface;
+use PhpFlo\Exception\InvalidDefinitionException;
 use Psr\Container\ContainerInterface;
 
 class ComponentDiFinderTest extends \PHPUnit_Framework_TestCase
@@ -33,12 +34,11 @@ class ComponentDiFinderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('SomeComponent', $component);
     }
 
-    /**
-     * @expectedException \PhpFlo\Exception\InvalidDefinitionException
-     * @expectedExceptionMessage Component SomeInvalidComponent doesn't appear to be a valid PhpFlo component
-     */
     public function testInvalidComponent()
     {
+        $this->expectException(InvalidDefinitionException::class);
+        $this->expectExceptionMessage('Component SomeInvalidComponent doesn\'t appear to be a valid PhpFlo component');
+
         $diFinder = new ComponentDiFinder(
             $this->stub(
                 ContainerInterface::class,

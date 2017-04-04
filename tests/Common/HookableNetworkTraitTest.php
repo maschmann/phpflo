@@ -12,6 +12,8 @@ namespace Tests\PhpFlo\Common;
 
 
 use PhpFlo\Common\HookableNetworkTrait;
+use PhpFlo\Exception\FlowException;
+use PhpFlo\Exception\InvalidTypeException;
 use PhpFlo\Interaction\InternalSocket;
 
 class HookableNetworkTraitTest extends \PHPUnit_Framework_TestCase
@@ -45,11 +47,10 @@ class HookableNetworkTraitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('callback1', $hooks['data']['somename']());
     }
 
-    /**
-     * @expectedException \PhpFlo\Exception\InvalidTypeException
-     */
     public function testInvalidEventNameException()
     {
+        $this->expectException(InvalidTypeException::class);
+
         $this->hookTrait->hook(
             'i_am_inavlid',
             'somename',
@@ -59,11 +60,10 @@ class HookableNetworkTraitTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \PhpFlo\Exception\FlowException
-     */
     public function testEventAlreadyExistsException()
     {
+        $this->expectException(FlowException::class);
+
         $this->hookTrait->hook(
             'data',
             'somename',

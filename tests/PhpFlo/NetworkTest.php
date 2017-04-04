@@ -5,6 +5,7 @@ use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamFile;
 use PhpFlo\Builder\ComponentFactory;
 use PhpFlo\Common\NetworkInterface;
+use PhpFlo\Exception\InvalidDefinitionException;
 use PhpFlo\Graph;
 use PhpFlo\Network;
 
@@ -115,10 +116,11 @@ EOF;
     /**
      * @param NetworkInterface $network
      * @depends testLoadFile
-     * @expectedException \PhpFlo\Exception\InvalidDefinitionException
      */
     public function testAddEdgeWithInvalidInitializerTarget(NetworkInterface $network)
     {
+        $this->expectException(InvalidDefinitionException::class);
+
         $network->addEdge(
             [
                 'from' => [
@@ -135,10 +137,11 @@ EOF;
     /**
      * @param NetworkInterface $network
      * @depends testLoadFile
-     * @expectedException \PhpFlo\Exception\InvalidDefinitionException
      */
     public function testNoProcessForInportException(NetworkInterface $network)
     {
+        $this->expectException(InvalidDefinitionException::class);
+
         $network->addEdge(
             [
                 'from' => [
@@ -157,10 +160,11 @@ EOF;
     /**
      * @param NetworkInterface $network
      * @depends testLoadFile
-     * @expectedException \PhpFlo\Exception\InvalidDefinitionException
      */
     public function testNoProcessForOutPortException(NetworkInterface $network)
     {
+        $this->expectException(InvalidDefinitionException::class);
+
         $network->addEdge(
             [
                 'from' => [
